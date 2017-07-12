@@ -11,8 +11,8 @@ class Sum(val left: Expr, val right: Expr) : Expr()
 
 fun eval(e: Expr): Int =
         when (e) {
-            is Num -> todoTask8(e)
-            is Sum -> todoTask8(e)
+            is Num -> e.value
+            is Sum -> eval(e.left) + eval(e.right)
         }
 
 fun todoTask8(expr: Expr): Nothing = TODO(
@@ -20,6 +20,16 @@ fun todoTask8(expr: Expr): Nothing = TODO(
         Task 8.
         Complete the implementation of the 'eval' function above using smart casts and 'when' expression.
         The 'JavaCode8.eval' method provides the similar functionality written in Java.
+
+
+        if (expr instanceof Num) {
+            return ((Num) expr).getValue();
+        }
+        if (expr instanceof Sum) {
+            Sum sum = (Sum) expr;
+            return eval(sum.getLeft()) + eval(sum.getRight());
+        }
+        throw new IllegalArgumentException("Unknown expression");
     """,
     documentation = doc8(),
     references = { JavaCode8().eval(expr) })
